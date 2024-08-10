@@ -1,12 +1,13 @@
 import React, { useState } from 'react'
 import { Navigate, Link, useNavigate } from 'react-router-dom'
 import { useAuth } from '../../src/contexts/authContext/index'
-import { doCreateUserWithEmailAndPassword } from '../auth'
+import { doCreateUserWithEmailAndPassword, doCreateUserWithEmailAndPasswordAndName } from '../auth'
 
 const Signup = () => {
 
     const navigate = useNavigate()
 
+    const [name, setName] = useState('')
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [confirmPassword, setconfirmPassword] = useState('')
@@ -19,8 +20,36 @@ const Signup = () => {
         e.preventDefault()
         if(!isRegistering) {
             setIsRegistering(true)
-            await doCreateUserWithEmailAndPassword(email, password)
-        }
+            setErrorMessage('');
+
+            if (password !== confirmPassword) {
+                setErrorMessage('Passwords do not match');
+                return;
+            }
+
+            try {
+                await doCreateUserWithEmailAndPasswordAndName(email, password, name);
+                navigate('/home'); // Redirect to home after successful signup
+            } catch (error) {
+                // Display specific error messages based on Firebase error codes
+                switch (error.code) {
+                    case 'auth/email-already-in-use':
+                        setErrorMessage('The email address is already in use by another account.');
+                        break;
+                    case 'auth/invalid-email':
+                        setErrorMessage('Please enter a valid email address.');
+                        break;
+                    case 'auth/weak-password':
+                        setErrorMessage('Password must be at least 6 characters.');
+                        break;
+                    default:
+                        setErrorMessage('An error occurred. Please try again.');
+                        break;
+                }
+                setIsRegistering(false);
+            }
+                await doCreateUserWithEmailAndPasswordAndName(email, password, name)
+            }
     }
 
     return (
@@ -39,6 +68,18 @@ const Signup = () => {
                         onSubmit={onSubmit}
                         className="space-y-4"
                     >
+                        <div>
+                            <label className="text-sm text-gray-600 font-bold">
+                                Name
+                            </label>
+                            <input
+                                type="name"
+                                autoComplete='name'
+                                required
+                                value={name} onChange={(e) => { setName(e.target.value) }}
+                                className="w-full mt-2 px-3 py-2 text-gray-500 bg-transparent outline-none border focus:indigo-600 shadow-sm rounded-lg transition duration-300"
+                            />
+                        </div>
                         <div>
                             <label className="text-sm text-gray-600 font-bold">
                                 Email

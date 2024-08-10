@@ -6,7 +6,23 @@ import {
   updatePassword,
   signInWithPopup,
   OAuthProvider,
+  updateProfile
 } from "firebase/auth";
+
+
+// Function to create a new user with email, password, and name
+export const doCreateUserWithEmailAndPasswordAndName = async (email, password, name) => {
+  const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+  const user = userCredential.user;
+
+  // Update the user's profile with their name
+  await updateProfile(user, {
+    displayName: name,
+  });
+
+  return user;
+};
+
 
 export const doCreateUserWithEmailAndPassword = async (email, password) => {
   return createUserWithEmailAndPassword(auth, email, password);

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import NavBar from '../components/Navbar'
 import { useNavigate } from 'react-router-dom';
 import { auth } from '../firebaseConfig';
@@ -9,7 +9,27 @@ import { signOut } from 'firebase/auth';
 import Card from '../components/Card';
 import Pfp from '../components/Pfp';
 
+
+
+
 const Home = () => {
+  const { userLoggedIn } = useAuth(); // Assuming you have userLoggedIn context
+
+  useEffect(() => {
+    if (userLoggedIn) {
+      const user = auth.currentUser;
+
+      // User's information
+      const name = user.displayName; // User's display name
+      const email = user.email; // User's email
+      const uid = user.uid; // User's unique ID
+
+      console.log(`Name: ${name}, Email: ${email}, UID: ${uid}`);
+    } else {
+      console.log("No user is currently logged in.");
+    }
+  }, []); // Empty dependency array ensures this runs once when the component mounts
+
   const { currentUser, setCurrentUser } = useAuth();
   const navigate = useNavigate();
 
