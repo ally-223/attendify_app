@@ -13,7 +13,7 @@ import Pfp from '../components/Pfp';
 
 
 const Home = () => {
-  const { userLoggedIn } = useAuth(); // Assuming you have userLoggedIn context
+  const { userLoggedIn } = useAuth(); 
 
   useEffect(() => {
     if (userLoggedIn) {

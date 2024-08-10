@@ -1,11 +1,24 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import ProfileImage from '../components/pfp.png';
+import { useAuth } from '../contexts/authContext/index'
+import { auth } from '../firebaseConfig';
 
 const StatusSet = () => {
   const [name, setName] = useState('');
   const [status, setStatus] = useState('');
   const [officeNumber, setOfficeNumber] = useState('');
   const [quote, setQuote] = useState('');
+
+  const { userLoggedIn } = useAuth();
+
+  useEffect(() => {
+    if (userLoggedIn) {
+      const user = auth.currentUser;
+      if (user && user.displayName) {
+        setName(user.displayName);
+      }
+    }
+  }, [userLoggedIn]);
 
   const handleStatusChange = (e) => {
     setStatus(e.target.value);
@@ -23,14 +36,6 @@ const StatusSet = () => {
       quote,
     };
     console.log('Form Data Submitted:', formData);
-
-    // Here you would typically send the data to your server or process it as needed
-    // For example: 
-    // fetch('/api/saveData', {
-    //   method: 'POST',
-    //   headers: { 'Content-Type': 'application/json' },
-    //   body: JSON.stringify(formData),
-    // });
   };
 
   return (
@@ -40,22 +45,12 @@ const StatusSet = () => {
         <div className="p-4">
           <h2 className="text-xl font-semibold mb-4">Profile Information</h2>
 
-          <form onSubmit={handleSubmit}>
-            {/* Name Field */}
+          
+            {/* Name Display */}
             <div className="mb-4">
-              <label className="block text-gray-700 text-sm font-semibold mb-2" htmlFor="name">
-                Name
-              </label>
-              <input
-                id="name"
-                type="text"
-                placeholder="Enter your name"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-                className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-1 focus:ring-blue-500"
-              />
+              {name || 'Loading...'}
             </div>
-
+          <form onSubmit={handleSubmit}>
             {/* Status Field */}
             <div className="mb-4">
               <label className="block text-gray-700 text-sm font-semibold mb-2" htmlFor="status">
