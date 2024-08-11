@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import ProfileImage from '../components/pfp.png';
 import { useAuth } from '../contexts/authContext/index'
 import { auth } from '../firebaseConfig';
+import axios from 'axios';
 
 const StatusSet = () => {
   const [name, setName] = useState('');
@@ -27,7 +28,7 @@ const StatusSet = () => {
     }
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const formData = {
       name,
@@ -36,6 +37,13 @@ const StatusSet = () => {
       quote,
     };
     console.log('Form Data Submitted:', formData);
+
+    try {
+      const response = await axios.post('http://localhost:5000/api/saveUserData', formData); 
+      console.log('Response from server:', response.data);
+    } catch (error) {
+      console.error('Error saving data:', error);
+    }
   };
 
   return (
