@@ -18,7 +18,7 @@ const Card = ({ user }) => {
   const statusColor = getStatusColor(user.status);
 
   return (
-    <div className="flex justify-center items-center h-[500px]">
+    <div className="flex justify-center items-center h-[400px]">
       <div className={`w-full max-w-[384px] h-full bg-white shadow-xl ring-1 ring-gray-900/5 rounded-lg overflow-hidden relative group`}>
         <span className={`absolute top-10 left-1/2 -translate-x-1/2 h-28 w-28 rounded-full ${statusColor} transition-all duration-300 group-hover:scale-[10]`}></span>
         <div className="absolute top-10 left-1/2 transform -translate-x-1/2 z-20">
