@@ -54,19 +54,20 @@ const Home = () => {
   };
 
   return (
-    <div className='min-h-screen bg-blue-100'> 
-    <div className="absolute top-3 right-4 z-10">
-    <a href="/StatusSet"> 
-        <Pfp/>
-    </a>
-    </div> 
-
-    <div className="absolute top-5 left-4 z-10">
-      <button onClick={handleLogout} className="text-sky-500 hover:text-white">
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="size-6">
-          <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 9V5.25A2.25 2.25 0 0 1 10.5 3h6a2.25 2.25 0 0 1 2.25 2.25v13.5A2.25 2.25 0 0 1 16.5 21h-6a2.25 2.25 0 0 1-2.25-2.25V15m-3 0-3-3m0 0 3-3m-3 3H15" />
-        </svg>
-      </button>
+    <div className='min-h-screen bg-blue-100 relative'> 
+    <div className="absolute top-0 left-0 right-0 flex justify-between items-center p-4 z-10">
+      <div>
+        <button onClick={handleLogout} className="text-sky-500 hover:text-white">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="size-6">
+            <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 9V5.25A2.25 2.25 0 0 1 10.5 3h6a2.25 2.25 0 0 1 2.25 2.25v13.5A2.25 2.25 0 0 1 16.5 21h-6a2.25 2.25 0 0 1-2.25-2.25V15m-3 0-3-3m0 0 3-3m-3 3H15" />
+          </svg>
+        </button>
+      </div>
+      <div>
+        <a href="/StatusSet"> 
+          <Pfp/>
+        </a>
+      </div>
     </div>
 
 

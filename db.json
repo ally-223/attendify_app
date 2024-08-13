@@ -1,0 +1,30 @@
+[
+    {
+      "id": "1",
+      "name": "John Doe",
+      "email": "john.doe@example.com",
+      "status": "In Office",
+      "officeNumber": "123A",
+      "quote": "Success is not final, failure is not fatal: It is the courage to continue that counts.",
+      "profilePic": "https://example.com/images/johndoe.jpg"
+    },
+    {
+      "id": "2",
+      "name": "Jane Smith",
+      "email": "jane.smith@example.com",
+      "status": "At Home",
+      "officeNumber": "",
+      "quote": "The only way to do great work is to love what you do.",
+      "profilePic": "https://example.com/images/janesmith.jpg"
+    },
+    {
+      "id": "3",
+      "name": "Mike Johnson",
+      "email": "mike.johnson@example.com",
+      "status": "Away",
+      "officeNumber": "",
+      "quote": "The best time to plant a tree was 20 years ago. The second best time is now.",
+      "profilePic": "https://example.com/images/mikejohnson.jpg"
+    }
+  ]
+  
