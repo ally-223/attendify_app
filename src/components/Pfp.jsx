@@ -1,22 +1,25 @@
 import React from 'react';
-import ProfileImage from './pfp.png';
 import { useNavigate } from 'react-router-dom';
-
+import ProfileImage from './pfp.png';
+import { useAuth } from '../contexts/authContext/index'
 
 const Pfp = () => {
-const history = useNavigate();
+  const navigate = useNavigate(); // Note: It's 'navigate', not 'history' in react-router-dom v6
+  const { currentUser } = useAuth(); // Assuming your auth context provides a currentUser object
+
+  const profileImageSrc = currentUser?.photoURL || ProfileImage;
 
   const handleClick = () => {
-    history.push('/auth');
+    navigate('/auth'); // Use 'navigate' instead of 'history.push'
   };
 
   return (
     <div onClick={handleClick} className="cursor-pointer">
-          <img 
-            src={ProfileImage}
-            alt="Profile Picture" 
-            className="w-14 h-14 rounded-full border-4 shadow-lg"
-          />
+      <img 
+        src={profileImageSrc}
+        alt="Profile Picture" 
+        className="w-14 h-14 rounded-full border-4 shadow-lg"
+      />
     </div>
   );
 };

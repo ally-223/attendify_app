@@ -12,6 +12,8 @@ import Pfp from '../components/Pfp';
 const Home = () => {
   const { userLoggedIn } = useAuth(); 
   const [users, setUsers] = useState([]);
+  const [filteredUsers, setFilteredUsers] = useState([]);
+  const [searchTerm, setSearchTerm] = useState('');
   const { currentUser, setCurrentUser } = useAuth();
   const navigate = useNavigate();
 
@@ -20,6 +22,7 @@ const Home = () => {
       try {
         const response = await axios.get('http://localhost:5000/api/getAllUsers');
         setUsers(response.data);
+        setFilteredUsers(response.data);
       } catch (error) {
         console.error('Error fetching users:', error);
       }
@@ -27,6 +30,15 @@ const Home = () => {
 
     fetchUsers();
   }, []);
+
+  useEffect(() => {
+    const results = users.filter(user =>
+      user.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      user.status.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      (user.officeNumber && user.officeNumber.toLowerCase().includes(searchTerm.toLowerCase()))
+    );
+    setFilteredUsers(results);
+  }, [searchTerm, users]);
 
   const handleLogout = async () => {
     try {
@@ -36,6 +48,10 @@ const Home = () => {
     } catch (error) {
       console.error('Error signing out:', error);
     }
+  };
+
+  const handleSearch = (event) => {
+    setSearchTerm(event.target.value);
   };
 
   return (
@@ -56,8 +72,17 @@ const Home = () => {
       </div>
 
       <div className="container mx-auto px-4 py-8">
+        <div className="flex justify-center mt-16 mb-8">
+          <input
+            type="text"
+            placeholder="Search by name, status, or office number"
+            value={searchTerm}
+            onChange={handleSearch}
+            className="w-4/5 p-2 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-sky-500"
+          />
+        </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-7 p-7">
-          {users.map((user) => (
+          {filteredUsers.map((user) => (
             <Card key={user._id} user={user} />
           ))}
         </div>
