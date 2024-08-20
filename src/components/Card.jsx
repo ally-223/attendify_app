@@ -2,8 +2,9 @@ import React from 'react';
 import DefaultProfileImage from './pfp.png';
 
 const Card = ({ user }) => {
+  //console.log(user)
   const getStatusColors = (status) => {
-    console.log({status});
+    //console.log({status});
     if (status) {
       switch(status.toLowerCase()) {
         case 'away':
@@ -53,6 +54,13 @@ const Card = ({ user }) => {
               "{user.quote}"
             </p>
           </div>
+          <div className="mt-4 text-sm text-gray-500 text-center">
+          {user.lastSubmitTime ? (
+            `Last updated: ${user.lastSubmitTime}`
+          ) : (
+            'No last update time available'
+          )}
+        </div>
         </div>
       </div>
     </div>
