@@ -6,6 +6,8 @@ import { auth } from '../firebaseConfig';
 import axios from 'axios';
 import { upload } from '../firebaseConfig';
 
+import NavBar from '../components/Navbar';
+
 const StatusSet = () => {
   const [name, setName] = useState('');
   const [status, setStatus] = useState('');
@@ -78,7 +80,8 @@ const StatusSet = () => {
   }
 
   return (
-    <div className="flex justify-center py-6 sm:py-12">
+    <div className="flex justify-center pb-24 pt-10">
+      <div><NavBar/></div>
        {/* Back Button */}
        <button 
         onClick={() => navigate('/')} 

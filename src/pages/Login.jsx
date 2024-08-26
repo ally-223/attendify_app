@@ -15,23 +15,27 @@ const Login = () => {
         e.preventDefault()
         if(!isSigningIn) {
             setIsSigningIn(true)
-            await doSignInWithEmailAndPassword(email, password)
-            // doSendEmailVerification()
+            try {
+                await doSignInWithEmailAndPassword(email, password)
+            } catch (err) {
+                setErrorMessage(err.message || 'Error signing in with email and password')
+                setIsSigningIn(false)
+            }
         }
     }
 
-    const onMCSignIn = async (e) => {
-        e.preventDefault();
-        if (!isSigningIn) {
-            setIsSigningIn(true);
-            try {
-                await doSignInWithMicrosoft();
-            } catch (err) {
-                setErrorMessage(err.message || 'Error signing in with Microsoft');
-                setIsSigningIn(false);
-            }
-        }
-    };
+    // const onMCSignIn = async (e) => {
+    //     e.preventDefault();
+    //     if (!isSigningIn) {
+    //         setIsSigningIn(true);
+    //         try {
+    //             await doSignInWithMicrosoft();
+    //         } catch (err) {
+    //             setErrorMessage(err.message || 'Error signing in with Microsoft');
+    //             setIsSigningIn(false);
+    //         }
+    //     }
+    // };
     
 
     return (

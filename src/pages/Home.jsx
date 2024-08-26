@@ -8,6 +8,7 @@ import { signOut } from 'firebase/auth';
 
 import Card from '../components/Card';
 import Pfp from '../components/Pfp';
+import NavBar from '../components/Navbar';
 
 const Home = () => {
   const { userLoggedIn } = useAuth(); 
@@ -87,6 +88,7 @@ const Home = () => {
           ))}
         </div>
       </div>
+      <div className='z-50'><NavBar/></div>
     </div>
   );
 };
